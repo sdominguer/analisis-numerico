@@ -1,0 +1,33 @@
+{% extends "solver/header.html" %}
+
+{% block content %} 
+    <h1>Búsquedas incrementales</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label>F</label>
+                    <input type="text" name="funcionX" class="form-control" size="1"/>
+                    <br>
+                    <label>xi</label>
+                    <input type="number" name="xi" class="form-control"/>
+                    <br>
+                    <label>deltax</label>
+                    <input type="text" name="deltax" class="form-control"/>
+                    <br>
+                    <label>maxima iteración</label>
+                    <input type="number" name="maxIteracion" class="form-control"/>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                    {% if hsolucion %}
+                    <label>Solución: </label>
+                    {{ solucion }}
+                    
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %} 

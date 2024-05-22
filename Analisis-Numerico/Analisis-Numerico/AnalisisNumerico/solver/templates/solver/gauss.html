@@ -1,0 +1,31 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+    {% if simple %}
+        <h1>Eliminacion Gaussiana</h1>
+    {% else %}
+        {% if parcial %}
+            <h1>Eliminacion Gaussiana con pivoteo Parcial</h1>
+        {% else %}
+            <h1>Eliminacion Gaussiana con pivoteo Total</h1>
+        {% endif %}
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <label>Matriz Aumentada</label>
+                    <input type="text" name="matriz" class="form-control" size="40"/><br>
+                    <label>Numero de Incognitas</label>
+                    <input type="number" name="numeroIncognitas" class="form-control"/><br>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                    {% if bSolucion %}
+                        <label>Solucion: {{solucion}}</label>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

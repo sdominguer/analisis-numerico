@@ -1,0 +1,31 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+    <h1>Raices Multiples</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <label>Funcion x</label>
+                    <input type="text" name="funcionX" class="form-control" size="40"/><br>
+                    <label>Funcion Derivada x</label>
+                    <input type="text" name="derivateX" class="form-control" size="40"/><br>
+                    <label>Funcion 2da Derivada x</label>
+                    <input type="text" name="derivate2X" class="form-control" size="40"/><br>
+                    <label>X Inicial</label>
+                    <input type="number" name="x0" class="form-control"/><br>
+                    <label>Tolerancia</label>
+                    <input type="text" name="tol" class="form-control"/><br>
+                    <label>Maximo Iteraciones</label>
+                    <input type="number" name="maxIte" class="form-control"/>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                    {% if bSolucion %}
+                        <label>Solucion: {{solucion}}</label>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

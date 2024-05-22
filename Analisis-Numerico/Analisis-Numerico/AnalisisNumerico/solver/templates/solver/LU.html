@@ -1,0 +1,23 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+<h1>Factorizacion LU</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <label>Matriz</label>
+                    <input type="text" name="A" class="form-control" size="60"/>
+                    <label>Vector b</label>
+                    <input type="text" name="b" class="form-control" size="60"/>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                    {% if bSolucion %}
+                    <label>Solucion: {{solucion}}</label>
+                {% endif %}
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
