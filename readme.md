@@ -166,19 +166,6 @@
 #### c. Salida
 - Solución del sistema de ecuaciones.
 
-### 5. Factorización LU con Pivoteo Parcial
-
-#### a. Entradas
-- **A**: Matriz invertible.
-- **_b**: Vector constante.
-
-#### b. Condiciones
-- La matriz debe ser cuadrada. La notación de la matriz debe ser escrita diferenciando las filas con “;” y las columnas con “,”. Ejemplo: `2,2;2,2`.
-- El vector debe ser escrito de forma traspuesta. Ejemplo: `2,2,2,2`.
-
-#### c. Salida
-- Solución del sistema de ecuaciones.
-
 ### 6. Método de Doolittle
 
 #### a. Entradas
@@ -260,16 +247,6 @@
 #### c. Salida
 - Solución del sistema de forma iterativa.
 
-## Capítulo 3: Interpolación
 
-### 1. Vandermonde
 
-#### a. Entradas
-- **X**: Vector constante con los puntos x.
-- **Y**: Vector constante con los puntos y.
 
-#### b. Condiciones
-- El vector “X” y “Y” deben ser escritos de forma traspuesta. Ejemplo: `2,2,2,2`.
-
-#### c. Salida
-- Solución del método con un pequeño margen de error.
