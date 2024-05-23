@@ -246,5 +246,3 @@
 
 #### c. Salida
 - Solución del sistema de forma iterativa.
-
-## Capítulo 3: Interpolación
