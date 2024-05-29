@@ -1,0 +1,33 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+{% if jaccobi %}
+    <h1>Jaccobi</h1>
+{% else %}
+    <h1>Gauss-Seidel</h1>
+{% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="POST">
+                {% csrf_token %}
+                <br>
+                <label>Matriz A</label>
+                <input type="text" name="A" class="form-control" size="60"/><br>
+                <label>Vector b</label>
+                <input type="text" name="b" class="form-control"/><br>
+                <label>Vector X0</label>
+                <input type="text" name="x0" class="form-control"/><br>
+                <label>Tolerancia</label>
+                <input type="text" name="tol" class="form-control"/><br>
+                <label>Maximo Iteraciones</label>
+                <input type="number" name="maxIte" class="form-control"/><br>
+                <input type="submit" value="Submit" class="btn btn-primary">
+                {% if bSolucion %}
+                    <label>Solución: {{ solucion }}</label>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

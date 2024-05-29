@@ -1,0 +1,28 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Capítulo Uno</h1>
+        <ul class="list-unstyled">
+            <li><a href="{% url 'busquedas-incrementales' %}" class="link-primary">Búsquedas Incrementales</a></li>
+            <li><a href="{% url 'biseccion' %}" class="link-primary">Bisección</a></li>
+            <li><a href="{% url 'reglaFalsa' %}" class="link-primary">Regla Falsa</a></li>
+            <li><a href="{% url 'newton' %}" class="link-primary">Newton</a></li>
+            <li><a href="{% url 'puntoFijo' %}" class="link-primary">Punto Fijo</a></li>
+            <li><a href="{% url 'secante' %}" class="link-primary">Secante</a></li>
+            <li><a href="{% url 'raicesMultiples' %}" class="link-primary">Raíces Múltiples</a></li>
+        </ul>
+
+        <h1>Capítulo Dos</h1>
+        <ul class="list-unstyled">
+            <li><a href="{% url 'gauss' %}" class="link-primary">Eliminación Gaussiana</a></li>
+            <li><a href="{% url 'gaussTotal' %}" class="link-primary">Eliminación Gaussiana con Pivoteo Total</a></li>
+            <li><a href="{% url 'factorizacionLU' %}" class="link-primary">Factorización LU</a></li>
+            <li><a href="{% url 'factorizacionDoolittle' %}" class="link-primary">Factorización de Doolittle</a></li>
+            <li><a href="{% url 'factorizacionCrout' %}" class="link-primary">Factorización de Crout</a></li>
+            <li><a href="{% url 'factorizacionCholesky' %}" class="link-primary">Factorización de Cholesky</a></li>
+            <li><a href="{% url 'jaccobi' %}" class="link-primary">Jacobi</a></li>
+            <li><a href="{% url 'gaussSeidel' %}" class="link-primary">Gauss-Seidel</a></li>
+        </ul>
+    </div>
+{% endblock %}

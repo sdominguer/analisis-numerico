@@ -1,0 +1,31 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+    <h1>Secante</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <label>Funcion x</label>
+                    <input type="text" name="funcionX" class="form-control" size="40"/><br>
+                    <label>X Uno</label>
+                    <input type="text" name="x0" class="form-control"/><br>
+                    <label>X Dos</label>
+                    <input type="text" name="x1" class="form-control"/><br>
+                    <label>Tolerancia</label>
+                    <input type="text" name="tol" class="form-control"/><br>
+                    <label>Maximo Iteraciones</label>
+                    <input type="number" name="maxIte" class="form-control"/>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+                {% if bSolucion %}
+                    <br>
+                    <h2>Solucion:</h2>
+                    <p>{{ solucion }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

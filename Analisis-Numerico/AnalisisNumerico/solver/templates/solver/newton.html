@@ -1,0 +1,29 @@
+{% extends "solver/header.html" %}
+
+{% block content %}
+    <h1>Newton</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <label>Funcion</label>
+                    <input type="text" name="funcion" class="form-control" size="40"/><br>
+                    <label>Derivada</label>
+                    <input type="text" name="derivada" class="form-control"/><br>
+                    <label>X Inicial</label>
+                    <input type="number" name="x0" class="form-control"/><br>
+                    <label>Tolerancia</label>
+                    <input type="text" name="tol" class="form-control"/><br>
+                    <label>Maximo Iteraciones</label>
+                    <input type="text" name="maxIte" class="form-control"/><br>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                    {% if bSolucion %}
+                        <label>Solucion: {{solucion}}</label>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
