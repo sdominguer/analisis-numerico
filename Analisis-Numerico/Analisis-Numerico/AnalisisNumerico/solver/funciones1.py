@@ -121,8 +121,8 @@ def hallarRaizPuntoFijo(funcionGX,x0,tol,maxIter):
         x0=xn
         xn=evaluar(funcionGX,x0)
         Error=abs(xn-x0)
-        ite=+1
-    if Error < tol:
+        ite+=1
+    if Error <= tol:
         return str(xn)+"es raiz con un tolerancia de "+str(tol)
     else:
         return "no se encontro raiz"
