@@ -2,27 +2,41 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h1>Capítulo Uno</h1>
-        <ul class="list-unstyled">
-            <li><a href="{% url 'busquedas-incrementales' %}" class="link-primary">Búsquedas Incrementales</a></li>
-            <li><a href="{% url 'biseccion' %}" class="link-primary">Bisección</a></li>
-            <li><a href="{% url 'reglaFalsa' %}" class="link-primary">Regla Falsa</a></li>
-            <li><a href="{% url 'newton' %}" class="link-primary">Newton</a></li>
-            <li><a href="{% url 'puntoFijo' %}" class="link-primary">Punto Fijo</a></li>
-            <li><a href="{% url 'secante' %}" class="link-primary">Secante</a></li>
-            <li><a href="{% url 'raicesMultiples' %}" class="link-primary">Raíces Múltiples</a></li>
-        </ul>
-
-        <h1>Capítulo Dos</h1>
-        <ul class="list-unstyled">
-            <li><a href="{% url 'gauss' %}" class="link-primary">Eliminación Gaussiana</a></li>
-            <li><a href="{% url 'gaussTotal' %}" class="link-primary">Eliminación Gaussiana con Pivoteo Total</a></li>
-            <li><a href="{% url 'factorizacionLU' %}" class="link-primary">Factorización LU</a></li>
-            <li><a href="{% url 'factorizacionDoolittle' %}" class="link-primary">Factorización de Doolittle</a></li>
-            <li><a href="{% url 'factorizacionCrout' %}" class="link-primary">Factorización de Crout</a></li>
-            <li><a href="{% url 'factorizacionCholesky' %}" class="link-primary">Factorización de Cholesky</a></li>
-            <li><a href="{% url 'jaccobi' %}" class="link-primary">Jacobi</a></li>
-            <li><a href="{% url 'gaussSeidel' %}" class="link-primary">Gauss-Seidel</a></li>
-        </ul>
+        <h1 class="mb-4">Índice de Contenidos</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>Capítulo Uno: Métodos de Búsqueda de Raíces</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="{% url 'busquedas-incrementales' %}" class="link-primary">Búsquedas Incrementales</a></li>
+                    <li class="list-group-item"><a href="{% url 'biseccion' %}" class="link-primary">Bisección</a></li>
+                    <li class="list-group-item"><a href="{% url 'reglaFalsa' %}" class="link-primary">Regla Falsa</a></li>
+                    <li class="list-group-item"><a href="{% url 'newton' %}" class="link-primary">Newton</a></li>
+                    <li class="list-group-item"><a href="{% url 'puntoFijo' %}" class="link-primary">Punto Fijo</a></li>
+                    <li class="list-group-item"><a href="{% url 'secante' %}" class="link-primary">Secante</a></li>
+                    <li class="list-group-item"><a href="{% url 'raicesMultiples' %}" class="link-primary">Raíces Múltiples</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2>Capítulo Dos: Métodos de Resolución de Sistemas de Ecuaciones Lineales</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="{% url 'gauss' %}" class="link-primary">Eliminación Gaussiana</a></li>
+                    <li class="list-group-item"><a href="{% url 'gaussTotal' %}" class="link-primary">Eliminación Gaussiana con Pivoteo Total</a></li>
+                    <li class="list-group-item"><a href="{% url 'factorizacionLU' %}" class="link-primary">Factorización LU</a></li>
+                    <li class="list-group-item"><a href="{% url 'factorizacionDoolittle' %}" class="link-primary">Factorización de Doolittle</a></li>
+                    <li class="list-group-item"><a href="{% url 'factorizacionCrout' %}" class="link-primary">Factorización de Crout</a></li>
+                    <li class="list-group-item"><a href="{% url 'factorizacionCholesky' %}" class="link-primary">Factorización de Cholesky</a></li>
+                    <li class="list-group-item"><a href="{% url 'jaccobi' %}" class="link-primary">Jacobi</a></li>
+                    <li class="list-group-item"><a href="{% url 'gaussSeidel' %}" class="link-primary">Gauss-Seidel</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
