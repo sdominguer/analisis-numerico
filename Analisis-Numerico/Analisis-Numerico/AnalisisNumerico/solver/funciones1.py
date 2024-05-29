@@ -118,148 +118,177 @@ def hallarRaizPuntoFijo(funcionGX,x0,tol,maxIter):
         x0=xn
         xn=evaluar(funcionGX,x0)
         Error=abs(xn-x0)
-        ite=+1
+        ite += 1
     if Error <= tol:
         return str(xn)+"es raiz con un tolerancia de "+str(tol)
     else:
         return "no se encontro raiz"
     
 #secante
-def hallarRaizSecante(funcionX,x0,x1,tol,maxIter):
-    f0=evaluar(funcionX,x0)
-    f1=evaluar(funcionX,x1)
+def hallarRaizSecante(funcionX, x0, x1, tol, maxIter):
+    f0 = evaluar(funcionX, x0)
+    f1 = evaluar(funcionX, x1)
     error = 1000000000000
     iter = 1
-    while(error>tol and iter<maxIter):
-        xn = x1-((f1*(x1-x0))/(f1-f0))
-        fn = evaluar(funcionX,xn)
-        error = abs(x1-xn)
-        iter =+ 1
-        x0=x1
-        f0=f1
-        x1=xn
-        f1=fn
+    while error > tol and iter < maxIter:
+        if f1 == f0:
+            return "No se puede continuar porque f1 y f0 son iguales, lo que causaría una división por cero."
+        xn = x1 - ((f1 * (x1 - x0)) / (f1 - f0))
+        fn = evaluar(funcionX, xn)
+        error = abs(x1 - xn)
+        iter += 1
+        x0, f0 = x1, f1
+        x1, f1 = xn, fn
     if error <= tol:
-        return str(xn)+" es raiz con una tolerancia de "+str(tol)
+        return str(xn) + " es raíz con una tolerancia de " + str(tol)
     else:
-        return "no se encontro raiz"
+        return "No se encontró raíz en el número máximo de iteraciones."
+
 
 #Raices Multiples
-def hallarRaizRaicesMultiples(funcionX,derivateX,derivate2X,X0,tol,maxIte):
-  xact=X0
-  fact=evaluar(funcionX,xact)
-  E=10000
-  cont=0
-  while E>tol and cont<maxIte :
-     dfact=evaluar(derivateX,xact)
-     d2act=evaluar(derivate2X,xact)
-     xnew=xact - ((fact*dfact)/((dfact**2)-fact*d2act))
-     fnew=evaluar(funcionX,xnew)
-     E=abs(xnew-xact)
-     cont+=1
-     xact=xnew
-     fact=fnew
-  return str(xact)+" es una raiz con una tolerancia de "+str(tol)
+def hallarRaizRaicesMultiples(funcionX, derivadaX, derivada2X, X0, tol, maxIter):
+    xact = X0
+    fact = evaluar(funcionX, xact)
+    E = 10000
+    cont = 0
+    while E > tol and cont < maxIter:
+        dfact = evaluar(derivadaX, xact)
+        d2act = evaluar(derivada2X, xact)
+        if (dfact ** 2 - fact * d2act) == 0:
+            return "División por cero en el cálculo. No se puede continuar."
+        xnew = xact - ((fact * dfact) / ((dfact ** 2) - fact * d2act))
+        fnew = evaluar(funcionX, xnew)
+        E = abs(xnew - xact)
+        cont += 1
+        xact = xnew
+        fact = fnew
+    if E <= tol:
+        return str(xact) + " es una raíz con una tolerancia de " + str(tol)
+    else:
+        return "No se encontró raíz en el número máximo de iteraciones."
 
 """Capitulo 2"""
 #Eliminacion Gaussiana
 def eliminacionGaussiana(n, a):
-    # Vector pa soluciones
+    # Vector para soluciones
     x = np.zeros(n)
+    
     # Gauss
     for i in range(n):
         if a[i][i] == 0.0:
-            return "sistema no compatible, probar otro método"     
-        for j in range(i+1, n):
-            multiplicador = a[j][i]/a[i][i]
-            for k in range(n+1):
-                a[j][k] = a[j][k] - multiplicador * a[i][k]
-    # Sustitucion
-    x[n-1] = a[n-1][n]/a[n-1][n-1]
-    for i in range(n-2,-1,-1):
-        x[i] = a[i][n]
-        for j in range(i+1,n):
-            x[i] = x[i] - a[i][j]*x[j]
-        x[i] = x[i]/a[i][i]
+            return "Sistema no compatible, probar otro método"     
+        for j in range(i + 1, n):
+            multiplicador = a[j][i] / a[i][i]
+            for k in range(i, n + 1):
+                a[j][k] -= multiplicador * a[i][k]
+    
+    # Sustitución hacia atrás
+    x[n - 1] = a[n - 1][n] / a[n - 1][n - 1]
+    for i in range(n - 2, -1, -1):
+        suma = 0
+        for j in range(i + 1, n):
+            suma += a[i][j] * x[j]
+        x[i] = (a[i][n] - suma) / a[i][i]
+    
     solucion = ""
     for i in range(n):
-        solucion = solucion + 'X'+str(i+1)+' = ' + str(x[i]) + " "
+        solucion += 'X' + str(i + 1) + ' = ' + str(x[i]) + " "
     return solucion
+
 
 #Eliminiacion Gaussiana con pivoteo Parcial
 def pivoteoParcial(n, a):
-    if n == 0:
-        x = np.zeros(1)
-    # Solucion
+    # Vector de soluciones
     x = np.zeros(n)
-    # pivoteo
+    
+    # Pivoteo parcial y eliminación Gaussiana
     for i in range(n):
-        for j in range (i, n):
-            if abs(a[i][i]) < abs(a[j][i]):
-                a = cambiarFilas(a,i,j)
-        if a[i][i] == 0.0:
+        # Pivoteo parcial
+        max_index = i + np.argmax(np.abs(a[i:n, i]))
+        if a[max_index, i] == 0:
             return 'Sistema de ecuaciones no compatible'
+        if max_index != i:
+            a = cambiarFilas(a, i, max_index)
+        
         # Gauss
-        for j in range(i+1, n):
-            multiplicador = a[j][i]/a[i][i]
-            for k in range(n+1):
-                a[j][k] = a[j][k] - multiplicador * a[i][k]
-    # Sustitucion
-    x[n-1] = a[n-1][n]/a[n-1][n-1]
-    for i in range(n-2,-1,-1):
-        x[i] = a[i][n]
-        for j in range(i+1,n):
-            x[i] = x[i] - a[i][j]*x[j]
-        x[i] = x[i]/a[i][i]
-    # solucion
+        for j in range(i + 1, n):
+            multiplicador = a[j][i] / a[i][i]
+            for k in range(i, n + 1):  # Corrige el rango de k
+                a[j][k] -= multiplicador * a[i][k]
+    
+    # Sustitución hacia atrás
+    x[n - 1] = a[n - 1][n] / a[n - 1][n - 1]
+    for i in range(n - 2, -1, -1):
+        suma = 0
+        for j in range(i + 1, n):
+            suma += a[i][j] * x[j]
+        x[i] = (a[i][n] - suma) / a[i][i]
+    
+    # Construcción de la solución
     solucion = ""
     for i in range(n):
-        solucion = solucion + 'X'+str(i+1)+' = ' + str(x[i])+ " "
+        solucion += 'X' + str(i + 1) + ' = ' + str(x[i]) + " "
     return solucion
 
 #Eliminacion Gaussiana con pivoteo Total
 def pivoteoTotal(n, a):
-    if n == 0:
-        x = np.zeros(1)
-    # Solucion
+    # Vector de soluciones
     x = np.zeros(n)
-    # pivoteo
-    for i in range(n):
-        for j in range (1, n):
-            if abs(a[i][i]) < abs(a[i][j]):
-                a = cambiarColumnas(a,i,j)
-            if abs(a[i][i]) < abs(a[j][i]):
-                a = cambiarFilas(a,i,j)
-        if a[i][i] == 0.0:
-            return 'Sistema de ecuaciones no compatible'
-        # Gauss
-        for j in range(i+1, n):
-            multiplicador = a[j][i]/a[i][i]
-            for k in range(n+1):
-                a[j][k] = a[j][k] - multiplicador * a[i][k]
-    # Sustitucion
-    x[n-1] = a[n-1][n]/a[n-1][n-1]
-    for i in range(n-2,-1,-1):
-        x[i] = a[i][n]
-        for j in range(i+1,n):
-            x[i] = x[i] - a[i][j]*x[j]
-        x[i] = x[i]/a[i][i]
+    indices = np.arange(n)
 
-    # solucion
+    # Pivoteo total y eliminación Gaussiana
+    for i in range(n):
+        # Pivoteo total
+        max_index = np.unravel_index(np.argmax(np.abs(a[i:n, i:n]), axis=None), a[i:n, i:n].shape)
+        max_index = (max_index[0] + i, max_index[1] + i)
+
+        if a[max_index[0], max_index[1]] == 0:
+            return 'Sistema de ecuaciones no compatible'
+        
+        # Cambiar filas
+        if max_index[0] != i:
+            a = cambiarFilas(a, i, max_index[0])
+        
+        # Cambiar columnas
+        if max_index[1] != i:
+            a = cambiarColumnas(a, i, max_index[1])
+            indices[i], indices[max_index[1]] = indices[max_index[1]], indices[i]
+        
+        # Gauss
+        for j in range(i + 1, n):
+            multiplicador = a[j][i] / a[i][i]
+            for k in range(i, n + 1):  # Corrige el rango de k
+                a[j][k] -= multiplicador * a[i][k]
+    
+    # Sustitución hacia atrás
+    x[n - 1] = a[n - 1][n] / a[n - 1][n - 1]
+    for i in range(n - 2, -1, -1):
+        suma = 0
+        for j in range(i + 1, n):
+            suma += a[i][j] * x[j]
+        x[i] = (a[i][n] - suma) / a[i][i]
+    
+    # Reordenar las soluciones de acuerdo con los intercambios de columnas
+    x_final = np.zeros(n)
+    for i in range(n):
+        x_final[indices[i]] = x[i]
+    
+    # Construcción de la solución
     solucion = ""
     for i in range(n):
-        solucion = solucion + 'X'+str(i+1)+' = ' + str(x[i])+" "
+        solucion += 'X' + str(i + 1) + ' = ' + str(x_final[i]) + " "
     return solucion
 
 #Factorizacion LU
-def luSimple(A,b):
-    L,U = lu(A)
-    y = susprog(L,b)
-    x = susReg(U,y)
+def luSimple(A, b):
+    L, U = lu(A)
+    y = susprog(L, b)
+    x = susReg(U, y)
     solucion = ""
     for i in range(len(x)):
-        solucion = solucion+"X"+str(i+1)+" = "+str(x[i])+ " "
+        solucion += "X" + str(i + 1) + " = " + str(x[i]) + " "
     return solucion
+    
 #Factorizacion LU con pivoteo Parcial Temporal
 """def metodoLUPar(A,b):
     P,L,U = scipy.linalg.lu(A)
@@ -271,11 +300,15 @@ def luSimple(A,b):
     z = np.linalg.solve(L,b)
     x = np.linalg.solve(U,z)
     return str(x)"""
+
 def luPivote(A, b):
     P, L, U = plu(A)
     y = susprog(L, np.dot(P, b))
     x = susReg(U, y)
-    return str(x)
+    solucion = ""
+    for i in range(len(x)):
+        solucion += "X" + str(i + 1) + " = " + str(x[i]) + " "
+    return solucion
 
 #Factotizacion de Doolittle
 def luDescomposicionDoolittle(A,b,n):
