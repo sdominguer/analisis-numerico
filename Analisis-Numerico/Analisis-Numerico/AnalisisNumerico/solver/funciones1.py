@@ -58,7 +58,7 @@ def hallarRaizBiseccion(xi,xf,funcionX,tol):
     if fm==0:
         return str(xm)+" es raíz"
     else:
-        return str(xm)+" es una raiz con una tolerancia de error de"+str(tol)
+        return str(xm)+" es una raiz con una tolerancia de error de  "+str(tol)
                 
 #Regla Falsa
 def hallarRaizReglaFalsa(xi,xf,funcionX,tol):
@@ -87,39 +87,42 @@ def hallarRaizReglaFalsa(xi,xf,funcionX,tol):
     if fm==0:
         return str(xm)+" es raíz"
     else:
-        return str(xm)+" es una raiz con una tolerancia de error"
+        return str(xm)+" es una raiz con una tolerancia de error de "+str(tol)
     
 #Newton
 def hallarRaizNewton(funcionX, derivadaX, x0, tol, maxIter):
-    fx = evaluar(funcionX,x0)
-    dfx= evaluar(derivadaX,x0)
-    if(dfx==0):
-        return "la derivada de la funcion es 0, por tanto no se puede usar este metodo"
-    xn= x0-(fx/dfx)
-    error = abs(x0-xn)
+    fx = evaluar(funcionX, x0)
+    dfx = evaluar(derivadaX, x0)
+    if dfx == 0:
+        return "La derivada de la función es 0, por tanto no se puede usar este método."
+    xn = x0 - (fx / dfx)
+    error = abs(x0 - xn)
     iter = 1
-    while(error >= tol and iter <= maxIter):
-      x0 = xn
-      fx = evaluar(funcionX,x0)
-      xn = x0-(fx/dfx)
-      error = abs(x0-xn)
-      iter += 1
+    while error >= tol and iter <= maxIter:
+        x0 = xn
+        fx = evaluar(funcionX, x0)
+        dfx = evaluar(derivadaX, x0)
+        if dfx == 0:
+            return "La derivada de la función es 0, por tanto no se puede usar este método."
+        xn = x0 - (fx / dfx)
+        error = abs(x0 - xn)
+        iter += 1
     if error <= tol:
-        return str(xn)+" es raiz con un tolerancia de "+ str(tol)
+        return str(xn) + " es raíz con una tolerancia de " + str(tol)
     else:
-        return "no se encontro raiz"
+        return "No se encontró raíz en el número máximo de iteraciones."
     
 #Punto Fijo
 def hallarRaizPuntoFijo(funcionGX,x0,tol,maxIter):
     xn=evaluar(funcionGX,x0)
     Error=abs(xn-x0)
     ite = 1
-    while(tol < Error and ite <= maxIter):
+    while(tol <= Error and ite <= maxIter):
         x0=xn
         xn=evaluar(funcionGX,x0)
         Error=abs(xn-x0)
         ite=+1
-    if Error <= tol:
+    if Error < tol:
         return str(xn)+"es raiz con un tolerancia de "+str(tol)
     else:
         return "no se encontro raiz"
